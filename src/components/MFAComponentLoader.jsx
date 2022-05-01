@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import PropTypes from "prop-types";
 import GlobalContext from "./contextProvider";
-import { findModule, loadScripts, getComponent } from "../utils";
+import { getComponent } from "../utils";
 
 const ErrorModule = () => (
   <div>
@@ -11,34 +11,27 @@ const ErrorModule = () => (
 
 const MFAComponentLoader = (props) => {
   const { componentName } = props;
-  const { manifests, setManifests } = useContext(GlobalContext);
+  const { federatedComponents } = useContext(GlobalContext);
   const [pluginLoaded, setPluginLoaded] = useState(false);
   const [componentTo, setComponentTo] = useState(() => {});
 
   useEffect(() => {
     const fetchComponentData = async () => {
-      const foundModule = findModule(componentName, manifests, "component");
-      if (!foundModule) {
-        setComponentTo(<ErrorModule />);
-        setPluginLoaded(true);
-        return;
-      }
-      const { url, moduleName, index } = foundModule;
-      const allManifests = [...manifests];
       setPluginLoaded(false);
       try {
-        if (!manifests[index].loaded) await loadScripts(`${url}remoteEntry.js`);
-        const Module = await getComponent(moduleName, componentName);
+        const Module = await getComponent(
+          federatedComponents[componentName],
+          componentName
+        );
         setComponentTo(<Module {...props} />);
-        allManifests[index].loaded = true;
-        setManifests(allManifests);
       } catch (err) {
         setComponentTo(<ErrorModule />);
       }
       setPluginLoaded(true);
     };
     fetchComponentData();
-  }, [manifests.length, componentName]);
+  }, [federatedComponents]);
+
   return (
     <>{pluginLoaded ? componentTo : <span className="loading">Loading</span>}</>
   );

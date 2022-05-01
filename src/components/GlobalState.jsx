@@ -2,24 +2,25 @@ import React, { useState, useEffect } from "react";
 import propTypes from "prop-types";
 import CommonContext from "./contextProvider";
 
-const GlobalState = ({ children, manifestData }) => {
+const GlobalState = ({
+  children,
+  federatedComponentsData,
+  appRoutesData,
+}) => {
   const [user, setUser] = useState("none");
-  const [commonRoutes, setCommonRoutes] = useState([]);
-  const [manifests, setManifests] = useState(manifestData);
-
-  useEffect(() => {
-    setManifests(manifestData);
-  }, [manifestData]);
+  const [federatedComponents, setFederatedComponents] =
+    useState(federatedComponentsData);
+  const [appRoutes, setAppRoutes] = useState(appRoutesData);
 
   return (
     <CommonContext.Provider
       value={{
         user,
         setUser,
-        commonRoutes,
-        setCommonRoutes,
-        manifests,
-        setManifests,
+        federatedComponents,
+        setFederatedComponents,
+        appRoutes,
+        setAppRoutes,
       }}
     >
       {children}
@@ -29,7 +30,6 @@ const GlobalState = ({ children, manifestData }) => {
 
 GlobalState.propTypes = {
   children: propTypes.node.isRequired,
-  manifestData: propTypes.array.isRequired,
 };
 
 export default GlobalState;
