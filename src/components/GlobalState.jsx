@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import propTypes from "prop-types";
 import CommonContext from "./contextProvider";
 
-const GlobalState = ({
-  children,
-  federatedComponentsData,
-  appRoutesData,
-}) => {
+const GlobalState = ({ children, federatedComponentsData, appRoutesData }) => {
   const [user, setUser] = useState("none");
-  const [federatedComponents, setFederatedComponents] =
-    useState(federatedComponentsData);
-  const [appRoutes, setAppRoutes] = useState(appRoutesData);
+  const [federatedComponents, setFederatedComponents] = useState([]);
+  const [appRoutes, setAppRoutes] = useState([]);
+
+  useEffect(() => {
+    setFederatedComponents(federatedComponentsData);
+    setAppRoutes(appRoutesData);
+  }, [appRoutesData, federatedComponentsData]);
 
   return (
     <CommonContext.Provider
