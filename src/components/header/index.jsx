@@ -13,6 +13,7 @@ const Header = ({ children }) => {
           <span className="brand-name logoText">Bootstrap Utility</span>
         </Link> */}
         <h1>Header</h1>
+        <p>I am a module federated header component exposed from the shared-component MFE.</p>
         {children}
       </div>
     </div>
