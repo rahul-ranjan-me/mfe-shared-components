@@ -16,7 +16,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git@github.com:rahul-ranjan-me/mfe-shared-components.git"
+    "url": "<%= clone_url %>"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
