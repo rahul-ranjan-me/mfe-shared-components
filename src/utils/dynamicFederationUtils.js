@@ -3,7 +3,7 @@ import "isomorphic-fetch";
 
 const dynamicFederation = async (scope, module) => {
   const container = window[scope];
-  await container.init(__webpack_share_scopes__.default);
+  await container.init(__webpack_share_scopes__.default); // eslint-disable-line camelcase, no-undef
   return container.get(module).then((factory) => {
     const Module = factory();
     return Module;
@@ -15,7 +15,8 @@ const loadScripts = async (url) => {
     const script = document.createElement("script");
 
     script.src = url;
-    (script.type = "text/javascript"), (script.async = true);
+    script.type = "text/javascript";
+    script.async = true;
 
     script.onload = function () {
       script.parentElement.removeChild(script);
@@ -48,39 +49,42 @@ const flattenArrOnKey = (arr, key) => {
       const flatArr = flattenArrOnKey(childObj, key);
       prev = prev.concat(flatArr);
     }
-
     return prev;
   }, []);
 };
 
-const loadLazy = (moduleName, componentName) =>
-  lazy(() => dynamicFederation(moduleName, componentName));
+const loadLazy = (moduleName, componentName) => lazy(() => dynamicFederation(moduleName, componentName));
 
 const setupInitialApp = async (configs, appRoutes) => {
   const setupAppPromise = new Promise((resolve, reject) => {
-    let updateWithModuleName = {};
-    let appRoutesInitial = appRoutes;
+    try {
+      const updateWithModuleName = {};
+      let appRoutesInitial = appRoutes;
 
-    configs.map(async (config, index) => {
-      const { url, name } = config;
-      await loadScripts(`${url}remoteEntry.js`);
-      const moduleRoutes = await getComponent(name, "./appRoutes");
-      if (moduleRoutes) {
-        appRoutesInitial = [...appRoutesInitial, ...moduleRoutes];
-      }
-      const exposedComponents = await getComponent(name, "./exposedComponents");
+      configs.map(async (config, index) => {
+        const { url, name } = config;
+        await loadScripts(`${url}remoteEntry.js`);
+        const moduleRoutes = await getComponent(name, "./appRoutes");
+        if (moduleRoutes) {
+          appRoutesInitial = [...appRoutesInitial, ...moduleRoutes];
+        }
+        const exposedComponents = await getComponent(name, "./exposedComponents");
 
-      exposedComponents.map((component) => {
-        if (component !== "./appRoutes") updateWithModuleName[component] = name;
-      });
-
-      if (index === configs.length - 1) {
-        resolve({
-          updateWithModuleName,
-          appRoutesInitial,
+        exposedComponents.map((component) => {
+          if (component !== "./appRoutes") updateWithModuleName[component] = name;
+          return updateWithModuleName[component];
         });
-      }
-    });
+
+        if (index === configs.length - 1) {
+          resolve({
+            updateWithModuleName,
+            appRoutesInitial,
+          });
+        }
+      });
+    } catch (err) {
+      reject(err);
+    }
   });
 
   return await setupAppPromise;

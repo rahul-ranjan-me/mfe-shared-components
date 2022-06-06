@@ -15,8 +15,12 @@ const Header = ({ children }) => {
   );
 };
 
+Header.defaultProps = {
+  children: null
+};
+
 Header.propTypes = {
-  children: propTypes.node.isRequired,
+  children: propTypes.node,
 };
 
 export default Header;

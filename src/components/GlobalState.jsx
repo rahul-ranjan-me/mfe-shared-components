@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import propTypes from "prop-types";
 import CommonContext from "./contextProvider";
 
@@ -14,14 +14,16 @@ const GlobalState = ({ children, federatedComponentsData, appRoutesData }) => {
 
   return (
     <CommonContext.Provider
-      value={{
-        user,
-        setUser,
-        federatedComponents,
-        setFederatedComponents,
-        appRoutes,
-        setAppRoutes,
-      }}
+      value={useMemo(() => {
+        return {
+          user,
+          setUser,
+          federatedComponents,
+          setFederatedComponents,
+          appRoutes,
+          setAppRoutes,
+        };
+      })}
     >
       {children}
     </CommonContext.Provider>
@@ -30,6 +32,8 @@ const GlobalState = ({ children, federatedComponentsData, appRoutesData }) => {
 
 GlobalState.propTypes = {
   children: propTypes.node.isRequired,
+  federatedComponentsData: propTypes.object.isRequired,
+  appRoutesData: propTypes.array.isRequired,
 };
 
 export default GlobalState;

@@ -23,7 +23,7 @@ const MFAComponentLoader = (props) => {
           federatedComponents[componentName],
           componentName
         );
-        setComponentTo(<Module {...props} />);
+        setComponentTo(<Module {...props} />); // eslint-disable-line react/jsx-props-no-spreading
       } catch (err) {
         setComponentTo(<ErrorModule />);
       }
@@ -33,11 +33,11 @@ const MFAComponentLoader = (props) => {
   }, [federatedComponents]);
 
   return (
-    <>{pluginLoaded ? componentTo : <span className="loading">Loading</span>}</>
+    pluginLoaded ? componentTo : <span className="loading">Loading</span>
   );
 };
 
-MFAComponentLoader.defaulProps = {
+MFAComponentLoader.defaultProps = {
   componentName: undefined,
 };
 

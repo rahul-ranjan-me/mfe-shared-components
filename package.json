@@ -8,7 +8,7 @@
     "build": "npm run lint && set NODE_ENV=production && npm run clean && webpack",
     "lint": "eslint --quiet \"src/**/*.{js,jsx}\"",
     "serve": "serve dist -p 6002",
-    "clean": "npx riamrf ./dist"
+    "clean": "npx rimraf ./dist"
   },
   "private": true,
   "keywords": [],

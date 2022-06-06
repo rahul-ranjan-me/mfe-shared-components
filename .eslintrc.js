@@ -9,15 +9,12 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
-    jest: true,
     node: true,
   },
   extends: [
     "eslint:recommended",
     "plugin:import/recommended",
     "airbnb",
-    "plugin:jest/recommended",
-    "plugin:jest-dom/recommended",
   ],
   rules: {
     strict: [2, "safe"],
@@ -30,14 +27,14 @@ module.exports = {
     "no-param-reassign": "off",
     "no-process-env": "off",
     "arrow-body-style": "off",
+    "react/function-component-definition": "off",
     "max-len": [
       2,
       {
         code: 160,
         ignoreComments: true,
         ignoreTrailingComments: true,
-        ignoreSettings: true,
-      },
+      }
     ],
     "object-curly-spacing": [2, "always"],
     "comma-dangle": 0,
