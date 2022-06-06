@@ -3,8 +3,6 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ModuleFederationPlugin =
   require("webpack").container.ModuleFederationPlugin;
 const path = require("path");
-const { Module } = require("module");
-const deps = require("./package.json").dependencies;
 const mode = process.env.mode ? process.env.mode : "development";
 const port = process.env.port || 6002;
 
@@ -77,10 +75,6 @@ module.exports = {
           "react-dom": {
             singleton: true,
             requiredVersion: '18.0.0'
-          },
-          "react-router-dom": {
-            singleton: true,
-            requiredVersion: '^6.3.0',
           },
         },
       ],

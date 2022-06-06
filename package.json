@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "set PORT=6002 && webpack serve",
-    "build": "npm run lint && set NODE_ENV=production && webpack",
+    "build": "npm run lint && set NODE_ENV=production && npm run clean && webpack",
     "lint": "eslint --quiet \"src/**/*.{js,jsx}\"",
     "serve": "serve dist -p 6002",
-    "clean": "riamrf ./dist"
+    "clean": "npx riamrf ./dist"
   },
   "private": true,
   "keywords": [],
