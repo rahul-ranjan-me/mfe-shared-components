@@ -1,0 +1,21 @@
+@import "../variables.scss";
+
+.tocs {
+  padding: 20px;
+  background: #f5f5f5;
+  color: #000000;
+  margin-bottom: 20px;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, .2);
+
+  h1 {
+    margin-top: 5px;
+  }
+
+  a {
+    color: $black;
+
+    &:hover {
+      color: $primary-call-action;
+    }
+  }
+}

@@ -6,17 +6,18 @@
   "scripts": {
     "start": "set PORT=6002 && webpack serve",
     "build": "npm run lint && set NODE_ENV=production && npm run clean && webpack",
+    "test": "npm run lint",
     "lint": "eslint --quiet \"src/**/*.{js,jsx}\"",
     "serve": "serve dist -p 6002",
     "clean": "npx rimraf ./dist"
   },
-  "private": true,
-  "keywords": [],
+  "private": false,
+  "keywords": ["module federation", "webpack module federation", "create mfa app", "module federation bootstrap cli", "Micro frontend bootstrap CLI"],
   "author": "Rahul Ranjan",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "<%= clone_url %>"
+    "url": "git@github.com:rahul-ranjan-me/mfe-shared-components.git"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
