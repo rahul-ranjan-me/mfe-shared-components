@@ -68,9 +68,8 @@ const setupInitialApp = async (configs, appRoutes) => {
         if (moduleRoutes) {
           appRoutesInitial = [...appRoutesInitial, ...moduleRoutes];
         }
-        const exposedComponents = await getComponent(name, "./exposedComponents");
-
-        exposedComponents.map((component) => {
+        const { exposedComponents } = await getComponent(name, "./manifest");
+        Object.keys(exposedComponents).map((component) => {
           if (component !== "./appRoutes") updateWithModuleName[component] = name;
           return updateWithModuleName[component];
         });
